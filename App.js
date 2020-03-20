@@ -22,68 +22,30 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const App: () => React$Node = () => {
+import LoginScreen from './Screens/LoginScreen';
+import RegisterChoiceScreen from './Screens/RegisterWorkflow/RegisterChoiceScreen';
+
+const Stack = createStackNavigator();
+
+function MyStack() {
   return (
     <NavigationContainer>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={AppStyles.mainView}>
-        <Image
-          style={AppStyles.logo}
-          source={require('ForSee/assets/images/ApplicationLogo.png')}
-        />
-        <Text>Email</Text>
-        <TextInput style={AppStyles.loginFieldsTextInput} />
-        <Text>Password</Text>
-        <TextInput style={AppStyles.loginFieldsTextInput} />
-
-        <View style={AppStyles.loginAndRegisterButtonContainer}>
-          <TouchableOpacity style={AppStyles.registerButton}>
-            <Text>Sign Up!</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={AppStyles.registerButton}>
-            <Text>Login!</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity>
-          <Text>Doctor Login</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterChoiceScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
+}
+
+const App: () => React$Node = () => {
+  return MyStack();
 };
 
 const AppStyles = StyleSheet.create({
-  loginFieldsTextInput: {
-    height: 40,
-    width: '80%',
-    borderColor: 'gray',
-    borderWidth: 1,
-  },
-  logo: {
-    width: 200,
-    height: 200,
-  },
-  mainView: {
-    alignItems: 'center',
-  },
-  loginAndRegisterButtonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 50,
-    marginRight: 50,
-    marginTop: 20,
-  },
-  registerButton: {
-    height: 50,
-    width: 150,
-    borderWidth: 1,
-    borderColor: 'gray',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
 });
 
 export default App;
