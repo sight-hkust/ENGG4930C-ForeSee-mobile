@@ -26,15 +26,20 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import LoginScreen from './Screens/LoginScreen';
 import RegisterChoiceScreen from './Screens/RegisterWorkflow/RegisterChoiceScreen';
+import RegisterName from './Screens/RegisterWorkflow/RegisterName';
 
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterChoiceScreen} />
+        <Stack.Screen name="RegisterName" component={RegisterName} />
       </Stack.Navigator>
     </NavigationContainer>
   );
