@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {
   SafeAreaView,
@@ -20,9 +21,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {NavigationContainer} from '@react-navigation/native';
+
 const App: () => React$Node = () => {
   return (
-    <>
+    <NavigationContainer>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={AppStyles.mainView}>
         <Image
@@ -35,15 +38,19 @@ const App: () => React$Node = () => {
         <TextInput style={AppStyles.loginFieldsTextInput} />
 
         <View style={AppStyles.loginAndRegisterButtonContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity style={AppStyles.registerButton}>
             <Text>Sign Up!</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity style={AppStyles.registerButton}>
             <Text>Login!</Text>
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity>
+          <Text>Doctor Login</Text>
+        </TouchableOpacity>
       </SafeAreaView>
-    </>
+    </NavigationContainer>
   );
 };
 
@@ -67,6 +74,15 @@ const AppStyles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 50,
     marginRight: 50,
+    marginTop: 20,
+  },
+  registerButton: {
+    height: 50,
+    width: 150,
+    borderWidth: 1,
+    borderColor: 'gray',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
