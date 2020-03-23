@@ -27,6 +27,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './Screens/LoginScreen';
 import RegisterChoiceScreen from './Screens/RegisterWorkflow/RegisterChoiceScreen';
 import RegisterName from './Screens/RegisterWorkflow/RegisterName';
+import MainScreen from './Screens/MainScreen';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ function MyStack() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterChoiceScreen} />
         <Stack.Screen name="RegisterName" component={RegisterName} />
+        <Stack.Screen name="MainScreen" component={MainScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -48,9 +50,5 @@ function MyStack() {
 const App: () => React$Node = () => {
   return MyStack();
 };
-
-const AppStyles = StyleSheet.create({
-
-});
 
 export default App;

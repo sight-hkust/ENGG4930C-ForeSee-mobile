@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 import {Styles} from '../Styles/styles';
+import AppColors from '../Styles/colors';
 
 export default class LoginScreen extends Component {
   state = {isDoctorLogin: false};
@@ -30,9 +31,12 @@ export default class LoginScreen extends Component {
             />
           </View>
           <View style={LoginStyles.contentContainer}>
-            <Text>Email</Text>
+            <Text style={LoginStyles.doctorsLoginTitle}>
+              {this.state.isDoctorLogin ? "Doctor's Login" : ''}
+            </Text>
+            <Text style={LoginStyles.labelText}>Email</Text>
             <TextInput style={LoginStyles.loginFieldsTextInput} />
-            <Text>Password</Text>
+            <Text style={LoginStyles.labelText}>Password</Text>
             <TextInput style={LoginStyles.loginFieldsTextInput} />
 
             <View style={LoginStyles.loginAndRegisterButtonContainer}>
@@ -68,6 +72,7 @@ const LoginStyles = StyleSheet.create({
     width: '80%',
     borderColor: 'gray',
     borderWidth: 1,
+    marginBottom: 30,
   },
   logoContainer: {
     flex: 2,
@@ -108,5 +113,21 @@ const LoginStyles = StyleSheet.create({
   },
   changeLoginOptionButton: {
     marginTop: 20,
+  },
+  labelText: {
+    width: '80%',
+    textAlign: 'left',
+    marginBottom: 10,
+    fontSize: 24,
+    color: 'gray',
+    fontWeight: 'bold',
+  },
+  doctorsLoginTitle: {
+    fontSize: 32,
+    textAlign: 'center',
+    width: '100%',
+    fontWeight: 'bold',
+    color: AppColors.primaryDark,
+    marginBottom: 20,
   },
 });

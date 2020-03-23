@@ -9,28 +9,43 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 import AppColors from '../../Styles/colors';
+import {Styles} from '../../Styles/styles';
 
 export default class RegisterName extends Component {
-  //this.props.route.params.isProfessional
+  componentDidMount() {
+    this.setState({
+      isProfessional: this.props.route.params.isProfessional,
+      userName: '',
+    });
+  }
+
+  goToNextPage() {
+    this.props.navigation.navigate('MainScreen', {
+      isProfessional: this.state.isProfessional,
+      userName: this.state.userName,
+    });
+  }
+
   render() {
     return (
       <View>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView style={RegisterNameStyles.mainView}>
-          <Text style={RegisterNameStyles.title}>What is your name?</Text>
+          <Text style={Styles.registerTitle}>What is your name?</Text>
           <TextInput
             style={RegisterNameStyles.textInput}
-            placeholder={'John Galt...'}
+            placeholder={'Your Name...'}
+            onChangeText={text => this.setState({userName: text})}
           />
           <View style={RegisterNameStyles.buttonContainer}>
-            <TouchableOpacity style={RegisterNameStyles.button}>
+            <TouchableOpacity
+              style={RegisterNameStyles.button}
+              onPress={() => this.props.navigation.goBack()}>
               <Text style={RegisterNameStyles.buttonText}>Back</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[
-                RegisterNameStyles.button,
-                RegisterNameStyles.nextButton,
-              ]}>
+              style={[RegisterNameStyles.button, RegisterNameStyles.nextButton]}
+              onPress={() => this.goToNextPage()}>
               <Text
                 style={[
                   RegisterNameStyles.buttonText,
@@ -71,19 +86,16 @@ const RegisterNameStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   nextButton: {
-    borderColor: AppColors.primaryLight,
+    borderColor: AppColors.primaryDark,
   },
   nextText: {
-    color: AppColors.primaryLight,
-  },
-  title: {
-    fontSize: 32,
-    marginTop: 50,
+    color: AppColors.primaryDark,
   },
   textInput: {
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'left',
-    width: '100%',
+    width: '80%',
+    marginBottom: 50,
   },
 });

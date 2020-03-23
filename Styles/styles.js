@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import AppColors from './colors';
 
 export const Styles = StyleSheet.create({
   horizontalButtonContainer: {
@@ -18,6 +19,15 @@ export const Styles = StyleSheet.create({
   smallButtonText: {
     fontSize: 24,
     color: 'gray',
+    fontWeight: 'bold',
+  },
+  registerTitle: {
+    fontSize: 32,
+    color: AppColors.primaryDark,
+    marginTop: 50,
+    marginBottom: 20,
+    textAlign: 'left',
+    width: '80%',
     fontWeight: 'bold',
   },
 });

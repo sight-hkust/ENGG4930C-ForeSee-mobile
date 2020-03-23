@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {Component} from 'react';
+import AppColors from '../../Styles/colors';
+import {Styles} from '../../Styles/styles';
 
 export default class RegisterChoiceScreen extends Component {
   render() {
@@ -14,28 +16,30 @@ export default class RegisterChoiceScreen extends Component {
       <View>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView style={RegisterChoiceStyles.mainView}>
-          <Text>What is your role?</Text>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('RegisterName', {
-                isProfessional: true,
-              })
-            }
-            style={RegisterChoiceStyles.choiceButton}>
-            <Text style={RegisterChoiceStyles.choiceText}>
-              Profesional (Doctor)
-            </Text>
-          </TouchableOpacity>
+          <Text style={Styles.registerTitle}>What is your role?</Text>
+          <View style={RegisterChoiceStyles.choicesContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('RegisterName', {
+                  isProfessional: true,
+                })
+              }
+              style={RegisterChoiceStyles.choiceButton}>
+              <Text style={RegisterChoiceStyles.choiceText}>
+                Profesional (Doctor)
+              </Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('RegisterName', {
-                isProfessional: false,
-              })
-            }
-            style={RegisterChoiceStyles.choiceButton}>
-            <Text style={RegisterChoiceStyles.choiceText}>Patient</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('RegisterName', {
+                  isProfessional: false,
+                })
+              }
+              style={RegisterChoiceStyles.choiceButton}>
+              <Text style={RegisterChoiceStyles.choiceText}>Patient</Text>
+            </TouchableOpacity>
+          </View>
         </SafeAreaView>
       </View>
     );
@@ -45,16 +49,28 @@ export default class RegisterChoiceScreen extends Component {
 const RegisterChoiceStyles = StyleSheet.create({
   mainView: {
     alignItems: 'center',
+    height: '100%',
+    width: '100%',
   },
   choiceButton: {
     width: '80%',
     height: 80,
-    borderWidth: 2,
+    borderWidth: 4,
     borderColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 20,
+    marginBottom: 50,
+  },
+  choicesContainer: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   choiceText: {
-    fontSize: 16,
+    fontSize: 24,
+    color: 'gray',
+    fontWeight: 'bold',
   },
 });
