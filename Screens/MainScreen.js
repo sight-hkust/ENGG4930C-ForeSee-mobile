@@ -34,6 +34,28 @@ export default class MainScreen extends Component {
           <Text style={Styles.registerTitle}>
             {'Hello, ' + this.state.userName}
           </Text>
+          <Text>What can we do for you?</Text>
+          <View style={MainStyles.choicesContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('RecordsScreen', {
+                  isProfessional: true,
+                })
+              }
+              style={MainStyles.choiceButton}>
+              <Text style={MainStyles.choiceText}>View Records</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={MainStyles.choiceButton}>
+              <Text style={MainStyles.choiceText}>My Doctors</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={MainStyles.choiceButton}>
+              <Text style={MainStyles.choiceText}>Get Educated</Text>
+            </TouchableOpacity>
+          </View>
         </SafeAreaView>
       </View>
     );
@@ -76,5 +98,26 @@ const MainStyles = StyleSheet.create({
     textAlign: 'left',
     width: '80%',
     marginBottom: 50,
+  },
+  choiceButton: {
+    width: '80%',
+    height: 80,
+    borderWidth: 4,
+    borderColor: 'gray',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginBottom: 50,
+  },
+  choicesContainer: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  choiceText: {
+    fontSize: 24,
+    color: 'gray',
+    fontWeight: 'bold',
   },
 });

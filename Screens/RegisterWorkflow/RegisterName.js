@@ -55,6 +55,7 @@ export default class RegisterName extends Component {
               </Text>
             </TouchableOpacity>
           </View>
+          <Text>By continuing you Agree to our Terms of Use and ....</Text>
         </SafeAreaView>
       </View>
     );

@@ -28,6 +28,7 @@ import LoginScreen from './Screens/LoginScreen';
 import RegisterChoiceScreen from './Screens/RegisterWorkflow/RegisterChoiceScreen';
 import RegisterName from './Screens/RegisterWorkflow/RegisterName';
 import MainScreen from './Screens/MainScreen';
+import RecordsScreen from './Screens/RecordsScreen';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,7 @@ function MyStack() {
         <Stack.Screen name="Register" component={RegisterChoiceScreen} />
         <Stack.Screen name="RegisterName" component={RegisterName} />
         <Stack.Screen name="MainScreen" component={MainScreen} />
+        <Stack.Screen name="RecordsScreen" component={RecordsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
