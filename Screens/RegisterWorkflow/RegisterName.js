@@ -39,23 +39,26 @@ export default class RegisterName extends Component {
           />
           <View style={RegisterNameStyles.buttonContainer}>
             <TouchableOpacity
-              style={RegisterNameStyles.button}
+              style={Styles.smallButton}
               onPress={() => this.props.navigation.goBack()}>
               <Text style={RegisterNameStyles.buttonText}>Back</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[RegisterNameStyles.button, RegisterNameStyles.nextButton]}
+              style={[Styles.smallButton, Styles.aProgressionButton]}
               onPress={() => this.goToNextPage()}>
               <Text
                 style={[
-                  RegisterNameStyles.buttonText,
-                  RegisterNameStyles.nextText,
+                  Styles.smallButtonText,
+                  Styles.aProgressionText,
                 ]}>
                 Next
               </Text>
             </TouchableOpacity>
           </View>
-          <Text>By continuing you Agree to our Terms of Use and ....</Text>
+          <Text style={Styles.termsOfUseText} multiline={true}>
+            By continuing you Agree to our Terms of Use and .......... .......
+            ........ ......... ..... .......
+          </Text>
         </SafeAreaView>
       </View>
     );
@@ -69,8 +72,8 @@ const RegisterNameStyles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-around',
+    width: '80%',
+    justifyContent: 'space-between',
   },
   button: {
     borderWidth: 2,

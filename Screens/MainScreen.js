@@ -12,18 +12,25 @@ import AppColors from '../Styles/colors';
 import {Styles} from '../Styles/styles';
 
 export default class MainScreen extends Component {
-  componentDidMount() {
-    this.setState({
-      isProfessional: this.props.route.params.isProfessional,
-      userName: this.props.route.params.userName,
-    });
-  }
   constructor(props) {
     super(props);
     this.state = {
       isProfessional: false,
-      userName: '',
+      userName: 'John Smith',
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      isProfessional:
+        'isProfessional' in this.props.route.params
+          ? this.props.route.params.isProfessional
+          : false,
+      userName:
+        'userName' in this.props.route.params
+          ? this.props.route.params.userName
+          : 'John Smith',
+    });
   }
 
   render() {
@@ -34,7 +41,7 @@ export default class MainScreen extends Component {
           <Text style={Styles.registerTitle}>
             {'Hello, ' + this.state.userName}
           </Text>
-          <Text>What can we do for you?</Text>
+          <Text style={MainStyles.helpText}>What can we do for you?</Text>
           <View style={MainStyles.choicesContainer}>
             <TouchableOpacity
               onPress={() =>
@@ -118,6 +125,15 @@ const MainStyles = StyleSheet.create({
   choiceText: {
     fontSize: 24,
     color: 'gray',
+    fontWeight: 'bold',
+  },
+  helpText: {
+    textAlign: 'left',
+    width: '80%',
+    color: 'gray',
+    fontSize: 18,
+    marginBottom: 30,
+    marginTop: -10,
     fontWeight: 'bold',
   },
 });

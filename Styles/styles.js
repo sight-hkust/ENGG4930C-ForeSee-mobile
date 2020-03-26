@@ -8,13 +8,19 @@ export const Styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   smallButton: {
-    borderWidth: 2,
+    borderWidth: 3,
     width: '40%',
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
     borderColor: 'gray',
+  },
+  aProgressionButton: {
+    borderColor: AppColors.primaryColor,
+  },
+  aProgressionText: {
+    color: AppColors.primaryColor,
   },
   smallButtonText: {
     fontSize: 24,
@@ -29,5 +35,11 @@ export const Styles = StyleSheet.create({
     textAlign: 'left',
     width: '80%',
     fontWeight: 'bold',
+  },
+  termsOfUseText: {
+    marginTop: 10,
+    fontSize: 12,
+    textAlign: 'center',
+    width: '70%',
   },
 });

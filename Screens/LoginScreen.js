@@ -13,7 +13,10 @@ import {Styles} from '../Styles/styles';
 import AppColors from '../Styles/colors';
 
 export default class LoginScreen extends Component {
-  state = {isDoctorLogin: false};
+  constructor(props) {
+    super(props);
+    this.state = {isDoctorLogin: false, email: '', password: ''};
+  }
 
   ChangeLoginState() {
     this.setState({isDoctorLogin: !this.state.isDoctorLogin});
@@ -45,8 +48,12 @@ export default class LoginScreen extends Component {
                 onPress={() => this.props.navigation.navigate('Register')}>
                 <Text style={Styles.smallButtonText}>Sign Up</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={Styles.smallButton}>
-                <Text style={Styles.smallButtonText}>Login</Text>
+              <TouchableOpacity
+                style={[Styles.smallButton, Styles.aProgressionButton]}
+                onPress={() => this.props.navigation.navigate('MainScreen', {})}>
+                <Text style={[Styles.smallButtonText, Styles.aProgressionText]}>
+                  Login
+                </Text>
               </TouchableOpacity>
             </View>
 
@@ -99,9 +106,9 @@ const LoginStyles = StyleSheet.create({
   },
   loginAndRegisterButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginTop: 20,
-    width: '100%',
+    width: '80%',
   },
   registerButton: {
     height: 50,
