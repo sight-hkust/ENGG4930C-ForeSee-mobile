@@ -11,15 +11,16 @@ import React, {Component} from 'react';
 import AppColors from '../../Styles/colors';
 import {Styles} from '../../Styles/styles';
 
-export default class RegisterName extends Component {
+export default class RegisterEmail extends Component {
     componentDidMount() {
         this.setState({
-            userName: '',
+            userName: this.props.route.params.userName,
+            email: '',
         });
     }
 
     goToNextPage() {
-        this.props.navigation.navigate('RegisterEmail', {
+        this.props.navigation.navigate('MainScreen', {
             userName: this.state.userName,
         });
     }
@@ -29,11 +30,11 @@ export default class RegisterName extends Component {
             <View>
                 <StatusBar barStyle="dark-content"/>
                 <SafeAreaView style={RegisterNameStyles.mainView}>
-                    <Text style={Styles.registerTitle}>What is your name?</Text>
+                    <Text style={Styles.registerTitle}>What is your email?</Text>
                     <TextInput
                         style={RegisterNameStyles.textInput}
-                        placeholder={'Your Name...'}
-                        onChangeText={text => this.setState({userName: text})}
+                        placeholder={'Your Email'}
+                        onChangeText={text => this.setState({email: text})}
                     />
                     <View style={RegisterNameStyles.buttonContainer}>
                         <TouchableOpacity

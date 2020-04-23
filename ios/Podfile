@@ -34,6 +34,10 @@ target 'ForSee' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
+  pod 'react-native-checkbox', :path => '../node_modules/@react-native-community/checkbox'
+
   target 'ForSeeTests' do
     inherit! :search_paths
     # Pods for testing

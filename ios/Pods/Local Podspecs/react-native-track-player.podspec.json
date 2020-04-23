@@ -1,0 +1,21 @@
+{
+  "name": "react-native-track-player",
+  "version": "1.2.2",
+  "summary": "A fully fledged audio module created for music apps",
+  "license": "Apache-2.0",
+  "authors": "David Chavez",
+  "homepage": "git+https://github.com/react-native-kit/react-native-track-player.git",
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source": {
+    "git": "git+https://github.com/react-native-kit/react-native-track-player.git",
+    "tag": "v1.2.2"
+  },
+  "source_files": "ios/**/*.{h,m,swift}",
+  "dependencies": {
+    "React": [
+
+    ]
+  }
+}

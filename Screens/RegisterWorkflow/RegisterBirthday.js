@@ -11,15 +11,17 @@ import React, {Component} from 'react';
 import AppColors from '../../Styles/colors';
 import {Styles} from '../../Styles/styles';
 
-export default class RegisterName extends Component {
+export default class RegisterBirthday extends Component {
     componentDidMount() {
         this.setState({
+            isProfessional: this.props.route.params.isProfessional,
             userName: '',
         });
     }
 
     goToNextPage() {
-        this.props.navigation.navigate('RegisterEmail', {
+        this.props.navigation.navigate('MainScreen', {
+            isProfessional: this.state.isProfessional,
             userName: this.state.userName,
         });
     }
@@ -53,6 +55,9 @@ export default class RegisterName extends Component {
                             </Text>
                         </TouchableOpacity>
                     </View>
+                    <Text style={Styles.termsOfUseText} multiline={true}>
+                        By continuing you agree to our Terms of Use and Privacy Policy
+                    </Text>
                 </SafeAreaView>
             </View>
         );
