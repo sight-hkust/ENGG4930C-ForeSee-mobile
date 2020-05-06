@@ -49,17 +49,16 @@ export default class RecordsScreen extends Component {
                     let leftEyeData = [];
                     for (let i = 0; i < records.length; i++) {
                         let record = records[i];
-                        dates.push(record.year);
-                        rightEyeData.push(record.right_eye_myopia);
-                        leftEyeData.push(record.left_eye_myopia);
+                        dates.push(parseInt(record.year));
+                        rightEyeData.push(parseFloat(record.right_eye_myopia));
+                        leftEyeData.push(parseFloat(record.left_eye_myopia));
                     }
-                    /*
                     this.setState({
                         dates: dates,
                         rightEye: rightEyeData,
                         leftEye: leftEyeData,
                         records: records,
-                    });*/
+                    });
                 } else {
                     Alert.alert('A problem occurred!');
                 }
@@ -165,7 +164,8 @@ export default class RecordsScreen extends Component {
                                       renderItem={(item) => this.renderRecord(item)}/>
                         </View> : <Text>You currently don't have any records.</Text>}
                     <View style={RecordsStyles.choicesContainer}>
-                        <TouchableOpacity style={RecordsStyles.choiceButton}>
+                        <TouchableOpacity style={RecordsStyles.choiceButton}
+                                          onPress={() => this.props.navigation.navigate('AddRecordScreen', {refreshRecords: ()=> this.getUserData()})}>
                             <Text style={RecordsStyles.choiceText}>Import New Data</Text>
                         </TouchableOpacity>
                     </View>

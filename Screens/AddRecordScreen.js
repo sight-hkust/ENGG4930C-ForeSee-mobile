@@ -4,10 +4,9 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Dimensions,
-    ScrollView,
     Alert,
-    FlatList,
+    SafeAreaView,
+    TextInput,
 } from 'react-native';
 import React, {Component} from 'react';
 import AppColors from '../Styles/colors';
@@ -18,171 +17,84 @@ import {LineChart} from 'react-native-chart-kit';
 
 export default class AddRecordScreen extends Component {
     componentDidMount() {
-        this.setState({
-            isProfessional: this.props.route.params.isProfessional,
-            userName: this.props.route.params.userName,
-        });
-        this.getUserData();
+        this.setState({});
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            isProfessional: false,
-            userName: '',
-            dates: [],
-            rightEye: [],
-            leftEye: [],
-            records: [],
+            rightEyeMyopia: '',
+            leftEyeMyopia: '',
+            month: '',
+            year: '',
         };
     }
 
-    getUserData() {
-        fetch('https://se69teeec9.execute-api.us-east-1.amazonaws.com/api/get_user_records?email=' + global.email + '&password=' + global.password)
-            .then((response) => response.json())
-            .then((json) => {
+    addRecord() {
+        fetch('https://se69teeec9.execute-api.us-east-1.amazonaws.com/api/create_record', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: global.email,
+                password: global.password,
+                left_eye_degree: this.state.leftEyeMyopia.toString(),
+                right_eye_degree: this.state.rightEyeMyopia.toString(),
+                month: this.state.month.toString(),
+                year: this.state.year.toString()
+            }),
+        })
+            .then(response => response.json())
+            .then(json => {
                 console.warn(json);
                 if (json.status === 'OK') {
-                    let records = json.records;
-                    let dates = [];
-                    let rightEyeData = [];
-                    let leftEyeData = [];
-                    for (let i = 0; i < records.length; i++) {
-                        let record = records[i];
-                        dates.push(record.year);
-                        rightEyeData.push(record.right_eye_myopia);
-                        leftEyeData.push(record.left_eye_myopia);
-                    }
-                    /*
-                    this.setState({
-                        dates: dates,
-                        rightEye: rightEyeData,
-                        leftEye: leftEyeData,
-                        records: records,
-                    });*/
+                    Alert.alert("Your record is added successfully!");
+                    this.props.route.params.refreshRecords();
+                    this.props.navigation.goBack();
                 } else {
                     Alert.alert('A problem occurred!');
                 }
             })
-            .catch((error) => {
+            .catch(error => {
                 Alert.alert('A problem occurred!');
                 console.error(error);
             });
-    }
-
-    renderRecord(item) {
-        return (
-            <View style={AddRecordStyles.recordContainer}>
-                <Text style={AddRecordStyles.recordText}>{item.month} / {item.year}</Text>
-                <View style={AddRecordStyles.grayLine}/>
-            </View>);
     }
 
     render() {
         return (
             <View>
                 <StatusBar barStyle="dark-content"/>
-                <ScrollView style={AddRecordStyles.mainView}
-                            contentContainerStyle={AddRecordStyles.scrollViewContentContainer}>
-                    {this.state.dates.length > 0 ? <View>
-                        <Text>{Strings.leftEye}</Text>
-                        <LineChart
-                            data={{
-                                labels: this.state.dates,
-                                datasets: [
-                                    {
-                                        data: this.state.leftEye,
-                                    },
-                                ],
-                            }}
-                            width={(Dimensions.get('window').width * 9) / 10} // from react-native
-                            height={220}
-                            yAxisInterval={1} // optional, defaults to 1
-                            chartConfig={{
-                                backgroundColor: '#e26a00',
-                                backgroundGradientFrom: '#fb8c00',
-                                backgroundGradientTo: '#ffa726',
-                                decimalPlaces: 2, // optional, defaults to 2dp
-                                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                style: {
-                                    borderRadius: 16,
-                                },
-                                propsForDots: {
-                                    r: '6',
-                                    strokeWidth: '2',
-                                    stroke: '#ffa726',
-                                },
-                            }}
-                            style={{
-                                marginVertical: 8,
-                                borderRadius: 16,
-                                marginTop: 30,
-                            }}
-                        />
-                        <Text>{Strings.rightEye}</Text>
-                        <LineChart
-                            data={{
-                                labels: this.state.dates,
-                                datasets: [
-                                    {
-                                        data: this.state.rightEye,
-                                    },
-                                ],
-                            }}
-                            width={(Dimensions.get('window').width * 9) / 10} // from react-native
-                            height={220}
-                            yAxisInterval={1} // optional, defaults to 1
-                            chartConfig={{
-                                backgroundColor: '#e26a00',
-                                backgroundGradientFrom: '#fb8c00',
-                                backgroundGradientTo: '#ffa726',
-                                decimalPlaces: 2, // optional, defaults to 2dp
-                                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                style: {
-                                    borderRadius: 16,
-                                },
-                                propsForDots: {
-                                    r: '6',
-                                    strokeWidth: '2',
-                                    stroke: '#ffa726',
-                                },
-                            }}
-                            style={{
-                                marginVertical: 8,
-                                borderRadius: 16,
-                                marginTop: 30,
-                            }}
-                        />
-                    </View> : null}
-                    <Text>{Strings.records}</Text>
-                    {this.state.records.length > 0 ?
-                        <View>
-                            <FlatList data={this.state.records}
-                                      extraData={this.state.records}
-                                      keyExtractor={item => item.id}
-                                      renderItem={(item) => this.renderRecord(item)}/>
-                        </View> : <Text>You currently don't have any records.</Text>}
-                    <View style={AddRecordStyles.choicesContainer}>
-                        <TouchableOpacity style={AddRecordStyles.choiceButton}>
-                            <Text style={AddRecordStyles.choiceText}>Import New Data</Text>
+                <SafeAreaView style={AddRecordStyles.mainView}>
+                    <View style={AddRecordStyles.contentContainer}>
+                        <Text style={AddRecordStyles.labelText}>{Strings.rightEyeLabel}</Text>
+                        <TextInput style={AddRecordStyles.loginFieldsTextInput}
+                                   onChangeText={(event) => this.setState({rightEyeMyopia: event})}/>
+                        <Text style={AddRecordStyles.labelText}>{Strings.leftEyeLabel}</Text>
+                        <TextInput style={AddRecordStyles.loginFieldsTextInput}
+                                   onChangeText={(event) => this.setState({leftEyeMyopia: event})}/>
+                        <Text style={AddRecordStyles.labelText}>{Strings.monthOfTest}</Text>
+                        <TextInput style={AddRecordStyles.loginFieldsTextInput}
+                                   onChangeText={(event) => this.setState({month: event})}/>
+                        <Text style={AddRecordStyles.labelText}>{Strings.yearOfTest}</Text>
+                        <TextInput style={AddRecordStyles.loginFieldsTextInput}
+                                   onChangeText={(event) => this.setState({year: event})}/>
+
+                        <TouchableOpacity
+                            style={Styles.smallButton}
+                            onPress={() => this.addRecord()}>
+                            <Text style={Styles.smallButtonText}>{Strings.add}</Text>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
+                </SafeAreaView>
             </View>
         );
     }
 }
 
 const AddRecordStyles = StyleSheet.create({
-    mainView: {
-        height: '100%',
-    },
-    scrollViewContentContainer: {
-        alignItems: 'center',
-        paddingTop: 50,
-    },
     buttonContainer: {
         flexDirection: 'row',
         width: '100%',
@@ -263,6 +175,67 @@ const AddRecordStyles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 20,
     },
+    loginFieldsTextInput: {
+        height: 40,
+        width: '80%',
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 30,
+    },
+    logoContainer: {
+        flex: 2,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        width: '100%',
+    },
+    contentContainer: {
+        flex: 4,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: 50,
+    },
+    logo: {
+        width: 200,
+        height: 200,
+    },
+    mainView: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        width: '100%',
+    },
+    loginAndRegisterButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 20,
+        width: '80%',
+    },
+    registerButton: {
+        height: 50,
+        width: 150,
+        borderWidth: 1,
+        borderColor: 'gray',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    changeLoginOptionButton: {
+        marginTop: 20,
+    },
+    labelText: {
+        width: '80%',
+        textAlign: 'left',
+        marginBottom: 10,
+        fontSize: 24,
+        color: 'gray',
+        fontWeight: 'bold',
+    },
+    doctorsLoginTitle: {
+        fontSize: 32,
+        textAlign: 'center',
+        width: '100%',
+        fontWeight: 'bold',
+        color: AppColors.primaryDark,
+        marginBottom: 20,
+    },
 });
-
-// TODO: Generate a method to summarize user data to plain text

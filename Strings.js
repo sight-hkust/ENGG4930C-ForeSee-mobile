@@ -10,6 +10,11 @@ let Strings = new LocalizedStrings({
         leftEye: "Left Eye",
         rightEye: "Right Eye",
         records: "Records",
+        rightEyeLabel: "Right Eye Myopia",
+        leftEyeLabel: "Left Eye Myopia",
+        add: "Add",
+        monthOfTest: "Month",
+        yearOfTest: "Year"
     },
     zh: {
         login: "Login",
