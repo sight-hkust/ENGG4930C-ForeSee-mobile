@@ -22,7 +22,6 @@ export default class AskAnExpert extends Component {
     }
 
     componentDidMount() {
-        console.warn(global.realName);
         this.setState({
             index: this.props.route.params.index,
         });

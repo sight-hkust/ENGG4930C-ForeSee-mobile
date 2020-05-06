@@ -5,12 +5,19 @@ let Strings = new LocalizedStrings({
     en:{
         login: "Login",
         email: "Email",
-        password: "Password"
+        password: "Password",
+        signUp: "Sign Up",
+        leftEye: "Left Eye",
+        rightEye: "Right Eye",
+        records: "Records",
     },
     zh: {
         login: "Login",
         email: "Email",
-        password: "Password"
+        password: "Password",
+        signUp: "Sign Up",
+        leftEye: "Left Eye",
+        rightEye: "Right Eye",
     }
 });
 

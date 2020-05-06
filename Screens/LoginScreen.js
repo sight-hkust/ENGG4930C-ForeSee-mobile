@@ -42,6 +42,7 @@ export default class LoginScreen extends Component {
                 if (json.status === 'OK') {
                     global.realName = json.user.real_name;
                     global.email = json.user.email;
+                    global.password = json.user.password;
                     this.props.navigation.navigate('MainScreen', {});
                 } else {
                     Alert.alert('Email or Password is wrong!');
@@ -70,7 +71,7 @@ export default class LoginScreen extends Component {
                         <Text style={LoginStyles.labelText}>{Strings.email}</Text>
                         <TextInput style={LoginStyles.loginFieldsTextInput}
                                    onChangeText={(event) => this.setState({email: event})}/>
-                        <Text style={LoginStyles.labelText}>Password</Text>
+                        <Text style={LoginStyles.labelText}>{Strings.password}</Text>
                         <TextInput style={LoginStyles.loginFieldsTextInput}
                                    onChangeText={(event) => this.setState({password: event})}
                                    secureTextEntry={true}/>
@@ -79,13 +80,13 @@ export default class LoginScreen extends Component {
                             <TouchableOpacity
                                 style={Styles.smallButton}
                                 onPress={() => this.props.navigation.navigate('Register')}>
-                                <Text style={Styles.smallButtonText}>Sign Up</Text>
+                                <Text style={Styles.smallButtonText}>{Strings.signUp}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[Styles.smallButton, Styles.aProgressionButton]}
                                 onPress={() => this.login()}>
                                 <Text style={[Styles.smallButtonText, Styles.aProgressionText]}>
-                                    Login
+                                    {Strings.login}
                                 </Text>
                             </TouchableOpacity>
                         </View>
