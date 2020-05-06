@@ -11,6 +11,10 @@ import {
 import React, {Component} from 'react';
 import AppColors from '../Styles/colors';
 import {Styles} from '../Styles/styles';
+import Sound from 'react-native-sound';
+
+const sound = new Sound('ForSee/assets/audio/eyeexercise1.mpeg', null, (error) => {
+});
 
 export default class GetEducated extends Component {
     constructor(props) {
@@ -33,7 +37,8 @@ export default class GetEducated extends Component {
                         <Text style={[GetEducatedStyles.articleTitle]}>Eye Exercise</Text>
                         <Text>Please use earphones.</Text>
                         <TouchableOpacity style={[GetEducatedStyles.articleText,
-                            {backgroundColor: "orange", width: 80, alignItems: 'center',padding: 10, borderRadius: 10, marginTop: 5}]}>
+                            {backgroundColor: "orange", width: 80, alignItems: 'center',padding: 10, borderRadius: 10, marginTop: 5}]}
+                            onPress={() => sound.play()}>
                             <Text>Listen</Text>
                         </TouchableOpacity>
                     </View>
