@@ -12,6 +12,7 @@ import {
 import React, {Component} from 'react';
 import {Styles} from '../Styles/styles';
 import AppColors from '../Styles/colors';
+import Strings from '../Strings';
 
 export default class LoginScreen extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ export default class LoginScreen extends Component {
                         <Text style={LoginStyles.doctorsLoginTitle}>
                             {this.state.isDoctorLogin ? 'Doctor\'s Login' : ''}
                         </Text>
-                        <Text style={LoginStyles.labelText}>Email</Text>
+                        <Text style={LoginStyles.labelText}>{Strings.email}</Text>
                         <TextInput style={LoginStyles.loginFieldsTextInput}
                                    onChangeText={(event) => this.setState({email: event})}/>
                         <Text style={LoginStyles.labelText}>Password</Text>
