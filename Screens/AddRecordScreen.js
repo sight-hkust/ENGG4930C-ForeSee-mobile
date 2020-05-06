@@ -16,7 +16,7 @@ import Strings from '../Strings';
 
 import {LineChart} from 'react-native-chart-kit';
 
-export default class RecordsScreen extends Component {
+export default class AddRecordScreen extends Component {
     componentDidMount() {
         this.setState({
             isProfessional: this.props.route.params.isProfessional,
@@ -72,9 +72,9 @@ export default class RecordsScreen extends Component {
 
     renderRecord(item) {
         return (
-            <View style={RecordsStyles.recordContainer}>
-                <Text style={RecordsStyles.recordText}>{item.month} / {item.year}</Text>
-                <View style={RecordsStyles.grayLine}/>
+            <View style={AddRecordStyles.recordContainer}>
+                <Text style={AddRecordStyles.recordText}>{item.month} / {item.year}</Text>
+                <View style={AddRecordStyles.grayLine}/>
             </View>);
     }
 
@@ -82,8 +82,8 @@ export default class RecordsScreen extends Component {
         return (
             <View>
                 <StatusBar barStyle="dark-content"/>
-                <ScrollView style={RecordsStyles.mainView}
-                            contentContainerStyle={RecordsStyles.scrollViewContentContainer}>
+                <ScrollView style={AddRecordStyles.mainView}
+                            contentContainerStyle={AddRecordStyles.scrollViewContentContainer}>
                     {this.state.dates.length > 0 ? <View>
                         <Text>{Strings.leftEye}</Text>
                         <LineChart
@@ -164,9 +164,9 @@ export default class RecordsScreen extends Component {
                                       keyExtractor={item => item.id}
                                       renderItem={(item) => this.renderRecord(item)}/>
                         </View> : <Text>You currently don't have any records.</Text>}
-                    <View style={RecordsStyles.choicesContainer}>
-                        <TouchableOpacity style={RecordsStyles.choiceButton}>
-                            <Text style={RecordsStyles.choiceText}>Import New Data</Text>
+                    <View style={AddRecordStyles.choicesContainer}>
+                        <TouchableOpacity style={AddRecordStyles.choiceButton}>
+                            <Text style={AddRecordStyles.choiceText}>Import New Data</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -175,7 +175,7 @@ export default class RecordsScreen extends Component {
     }
 }
 
-const RecordsStyles = StyleSheet.create({
+const AddRecordStyles = StyleSheet.create({
     mainView: {
         height: '100%',
     },
