@@ -21,7 +21,6 @@ export default class MainScreen extends Component {
     }
 
     componentDidMount() {
-        console.warn(global.realName);
         this.setState({
             isProfessional:
                 'isProfessional' in this.props.route.params

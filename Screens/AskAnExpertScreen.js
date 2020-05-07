@@ -21,7 +21,6 @@ export default class AskAnExpert extends Component {
     }
 
     componentDidMount() {
-        console.warn(global.realName);
         this.setState({
             question: '',
             checkBoxOne: false,
@@ -45,7 +44,6 @@ export default class AskAnExpert extends Component {
         })
             .then(response => response.json())
             .then(json => {
-                console.warn(json);
                 Alert.alert('We have delivered your question successful.')
             })
             .catch(error => {
