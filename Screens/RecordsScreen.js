@@ -34,6 +34,7 @@ export default class RecordsScreen extends Component {
             rightEye: [],
             leftEye: [],
             records: [],
+            recordsView: [],
         };
     }
 
@@ -41,7 +42,6 @@ export default class RecordsScreen extends Component {
         fetch('https://se69teeec9.execute-api.us-east-1.amazonaws.com/api/get_user_records?email=' + global.email + '&password=' + global.password)
             .then((response) => response.json())
             .then((json) => {
-                console.warn(json);
                 if (json.status === 'OK') {
                     let records = json.records;
                     let dates = [];
@@ -53,6 +53,7 @@ export default class RecordsScreen extends Component {
                         rightEyeData.push(parseFloat(record.right_eye_myopia));
                         leftEyeData.push(parseFloat(record.left_eye_myopia));
                     }
+                    this.createRecords(records);
                     this.setState({
                         dates: dates,
                         rightEye: rightEyeData,
@@ -69,12 +70,17 @@ export default class RecordsScreen extends Component {
             });
     }
 
-    renderRecord(item) {
-        return (
-            <View style={RecordsStyles.recordContainer}>
-                <Text style={RecordsStyles.recordText}>{item.month} / {item.year}</Text>
+
+    createRecords(records) {
+        let recordsView = [];
+        for (let i = 0; i < records.length; i++) {
+            let record = records[i];
+            recordsView.push(<View style={RecordsStyles.recordContainer}>
+                <Text style={RecordsStyles.recordText}>{record.month} / {record.year}</Text>
                 <View style={RecordsStyles.grayLine}/>
             </View>);
+        }
+        this.setState({recordsView: recordsView});
     }
 
     render() {
@@ -157,15 +163,11 @@ export default class RecordsScreen extends Component {
                     </View> : null}
                     <Text>{Strings.records}</Text>
                     {this.state.records.length > 0 ?
-                        <View>
-                            <FlatList data={this.state.records}
-                                      extraData={this.state.records}
-                                      keyExtractor={item => item.id}
-                                      renderItem={(item) => this.renderRecord(item)}/>
-                        </View> : <Text>You currently don't have any records.</Text>}
+                        this.state.recordsView
+                        : <Text>You currently don't have any records.</Text>}
                     <View style={RecordsStyles.choicesContainer}>
                         <TouchableOpacity style={RecordsStyles.choiceButton}
-                                          onPress={() => this.props.navigation.navigate('AddRecordScreen', {refreshRecords: ()=> this.getUserData()})}>
+                                          onPress={() => this.props.navigation.navigate('AddRecordScreen', {refreshRecords: () => this.getUserData()})}>
                             <Text style={RecordsStyles.choiceText}>Import New Data</Text>
                         </TouchableOpacity>
                     </View>
@@ -176,6 +178,18 @@ export default class RecordsScreen extends Component {
 }
 
 const RecordsStyles = StyleSheet.create({
+    flatList: {
+        backgroundColor: '#FF00FF',
+        width: '100%',
+        height: 100,
+        flex: 1,
+    },
+    flatListStyle: {
+        width: '100%',
+        backgroundColor: '#0000FF',
+        height: 100,
+        flex: 1,
+    },
     mainView: {
         height: '100%',
     },
@@ -266,3 +280,5 @@ const RecordsStyles = StyleSheet.create({
 });
 
 // TODO: Generate a method to summarize user data to plain text
+// TODO: No data, graph reload after adding data problem, "cant change state on unmounted component"
+
