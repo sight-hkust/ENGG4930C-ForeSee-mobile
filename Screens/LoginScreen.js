@@ -172,3 +172,5 @@ const LoginStyles = StyleSheet.create({
         marginBottom: 20,
     },
 });
+
+// TODO: Async storage to store login info
