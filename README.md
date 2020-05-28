@@ -13,7 +13,7 @@ ForeSee is an application for tracking of eye health metrics such as myopia. Thi
 4. `cd` into `ios` and run `pod install`.
 5. Go back to root of `ENGG4930C-ForeSee-mobile` and run `reac-native run-ios`. The application should start in an iOS emulator.
 
-<img src="https://github.com/DoguD/ENGG4930C-ForeSee-mobile/blob/master/github-src/loginScreen.png" 
+<img src="https://github.com/sight-hkust/ENGG4930C-ForeSee-mobile/blob/master/github-src/loginScreen.png" 
 alt="Login Screen Screenshot" width="200" height="430" border="10" />
 
 ## Next Steps
