@@ -20,8 +20,9 @@ export default class RegisterEmail extends Component {
     }
 
     goToNextPage() {
-        this.props.navigation.navigate('MainScreen', {
+        this.props.navigation.navigate('RegisterPassword', {
             userName: this.state.userName,
+            email: this.state.email
         });
     }
 

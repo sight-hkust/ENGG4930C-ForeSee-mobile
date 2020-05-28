@@ -14,15 +14,17 @@ import {Styles} from '../../Styles/styles';
 export default class RegisterPassword extends Component {
     componentDidMount() {
         this.setState({
-            isProfessional: this.props.route.params.isProfessional,
-            userName: '',
+            userName: this.props.route.params.userName,
+            email: this.props.route.params.email,
+            password: ''
         });
     }
 
     goToNextPage() {
-        this.props.navigation.navigate('MainScreen', {
-            isProfessional: this.state.isProfessional,
+        this.props.navigation.navigate('RegisterPhone', {
             userName: this.state.userName,
+            email: this.state.email,
+            password: this.state.password
         });
     }
 
@@ -31,11 +33,12 @@ export default class RegisterPassword extends Component {
             <View>
                 <StatusBar barStyle="dark-content"/>
                 <SafeAreaView style={RegisterNameStyles.mainView}>
-                    <Text style={Styles.registerTitle}>What is your name?</Text>
+                    <Text style={Styles.registerTitle}>What is your password?</Text>
                     <TextInput
                         style={RegisterNameStyles.textInput}
-                        placeholder={'Your Name...'}
-                        onChangeText={text => this.setState({userName: text})}
+                        placeholder={'Your Password'}
+                        onChangeText={text => this.setState({password: text})}
+                        secureTextEntry={true}
                     />
                     <View style={RegisterNameStyles.buttonContainer}>
                         <TouchableOpacity
@@ -55,9 +58,6 @@ export default class RegisterPassword extends Component {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <Text style={Styles.termsOfUseText} multiline={true}>
-                        By continuing you agree to our Terms of Use and Privacy Policy
-                    </Text>
                 </SafeAreaView>
             </View>
         );

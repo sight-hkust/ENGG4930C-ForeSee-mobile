@@ -25,6 +25,7 @@ const Stack = createStackNavigator();
 global.realName = '';
 global.email = '';
 global.password = '';
+global.apiUrl = 'https://se69teeec9.execute-api.us-east-1.amazonaws.com/api/';
 
 function MyStack() {
     return (

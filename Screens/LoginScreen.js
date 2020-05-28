@@ -25,7 +25,7 @@ export default class LoginScreen extends Component {
     }
 
     login() {
-        fetch('https://se69teeec9.execute-api.us-east-1.amazonaws.com/api/login', {
+        fetch(global.apiUrl + 'login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

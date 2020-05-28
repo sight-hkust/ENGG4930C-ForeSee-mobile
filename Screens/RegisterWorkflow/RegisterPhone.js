@@ -14,15 +14,19 @@ import {Styles} from '../../Styles/styles';
 export default class RegisterPhone extends Component {
     componentDidMount() {
         this.setState({
-            isProfessional: this.props.route.params.isProfessional,
-            userName: '',
+            userName: this.props.route.params.userName,
+            email: this.props.route.params.email,
+            password: this.props.route.params.password,
+            phoneNumber: ''
         });
     }
 
     goToNextPage() {
-        this.props.navigation.navigate('MainScreen', {
-            isProfessional: this.state.isProfessional,
+        this.props.navigation.navigate('RegisterIsParent', {
+            email: this.state.email,
             userName: this.state.userName,
+            password: this.state.password,
+            phoneNumber: this.state.phoneNumber
         });
     }
 
@@ -31,11 +35,11 @@ export default class RegisterPhone extends Component {
             <View>
                 <StatusBar barStyle="dark-content"/>
                 <SafeAreaView style={RegisterNameStyles.mainView}>
-                    <Text style={Styles.registerTitle}>What is your name?</Text>
+                    <Text style={Styles.registerTitle}>What is your phone number?</Text>
                     <TextInput
                         style={RegisterNameStyles.textInput}
-                        placeholder={'Your Name...'}
-                        onChangeText={text => this.setState({userName: text})}
+                        placeholder={'Your Phone Number (Optional)'}
+                        onChangeText={text => this.setState({phoneNumber: text})}
                     />
                     <View style={RegisterNameStyles.buttonContainer}>
                         <TouchableOpacity
@@ -55,9 +59,6 @@ export default class RegisterPhone extends Component {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <Text style={Styles.termsOfUseText} multiline={true}>
-                        By continuing you agree to our Terms of Use and Privacy Policy
-                    </Text>
                 </SafeAreaView>
             </View>
         );
