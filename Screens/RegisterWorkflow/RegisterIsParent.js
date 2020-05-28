@@ -5,7 +5,7 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput,
+    TextInput, Alert,
 } from 'react-native';
 import React, {Component} from 'react';
 import AppColors from '../../Styles/colors';
@@ -14,16 +14,44 @@ import {Styles} from '../../Styles/styles';
 export default class RegisterIsParent extends Component {
     componentDidMount() {
         this.setState({
-            isProfessional: this.props.route.params.isProfessional,
-            userName: '',
+            userName: this.props.route.params.userName,
+            email: this.props.route.params.email,
+            password: this.props.route.params.password,
+            phoneNumber: this.props.route.params.phoneNumber,
+            isParent: 0,
         });
     }
 
-    goToNextPage() {
-        this.props.navigation.navigate('MainScreen', {
-            isProfessional: this.state.isProfessional,
-            userName: this.state.userName,
-        });
+    registerUser() {
+        fetch(global.apiUrl + 'create_user', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: this.state.email,
+                real_name: this.state.userName,
+                password: this.state.password,
+                phone_number: this.state.phoneNumber,
+                is_parent: this.state.isParent
+            }),
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                if (json.status === 'OK') {
+                    global.realName = this.state.userName;
+                    global.email = this.state.email;
+                    global.password = this.state.password;
+                    this.props.navigation.navigate('MainScreen', {});
+                } else {
+                    Alert.alert('Registration Error');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     render() {
@@ -31,32 +59,25 @@ export default class RegisterIsParent extends Component {
             <View>
                 <StatusBar barStyle="dark-content"/>
                 <SafeAreaView style={RegisterNameStyles.mainView}>
-                    <Text style={Styles.registerTitle}>What is your name?</Text>
-                    <TextInput
-                        style={RegisterNameStyles.textInput}
-                        placeholder={'Your Name...'}
-                        onChangeText={text => this.setState({userName: text})}
-                    />
-                    <View style={RegisterNameStyles.buttonContainer}>
-                        <TouchableOpacity
-                            style={Styles.smallButton}
-                            onPress={() => this.props.navigation.goBack()}>
-                            <Text style={RegisterNameStyles.buttonText}>Back</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[Styles.smallButton, Styles.aProgressionButton]}
-                            onPress={() => this.goToNextPage()}>
-                            <Text
-                                style={[
-                                    Styles.smallButtonText,
-                                    Styles.aProgressionText,
-                                ]}>
-                                Next
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Text style={Styles.registerTitle}>Are you a parent?</Text>
+                    <TouchableOpacity
+                        style={Styles.smallButton}
+                        onPress={() => this.setState({isParent: 0}, () => this.registerUser())}>
+                        <Text style={RegisterNameStyles.buttonText}>No</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[Styles.smallButton, Styles.aProgressionButton, {marginTop: 20}]}
+                        onPress={() => this.setState({isParent: 1}, () => this.registerUser())}>
+                        <Text
+                            style={[
+                                Styles.smallButtonText,
+                                Styles.aProgressionText,
+                            ]}>
+                            Yes
+                        </Text>
+                    </TouchableOpacity>
                     <Text style={Styles.termsOfUseText} multiline={true}>
-                        By continuing you agree to our Terms of Use and Privacy Policy
+                        By continuing you agree to our Terms of Use and Privacy Policy.
                     </Text>
                 </SafeAreaView>
             </View>
