@@ -1,25 +1,5 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    TextInput,
-    StatusBar,
-    Image,
-    Dimensions,
-    TouchableOpacity,
-} from 'react-native';
-
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -38,6 +18,7 @@ import RecordsScreen from './Screens/RecordsScreen';
 import ArticleDetailScreen from './Screens/ArticleDetail';
 import AskAnExpertScreen from './Screens/AskAnExpertScreen';
 import AddRecordScreen from './Screens/AddRecordScreen';
+import DoctorsScreen from './Screens/Doctors';
 
 const Stack = createStackNavigator();
 
@@ -67,6 +48,7 @@ function MyStack() {
                 <Stack.Screen name="ArticleDetailScreen" component={ArticleDetailScreen}/>
                 <Stack.Screen name="AskAnExpertScreen" component={AskAnExpertScreen}/>
                 <Stack.Screen name="AddRecordScreen" component={AddRecordScreen}/>
+                <Stack.Screen name="DoctorsScreen" component={DoctorsScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
